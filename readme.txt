@@ -112,3 +112,28 @@ $ rake spec SPEC_OPTS="--format html" > ~/result.html 	`
 # Git
 
 https://github.com/devsunset/git-github-work
+
+$ suo yum install -y git 
+$ git --version 
+$ git config --global user.name "devsunset"
+$ git config --global user.email "devsunset@gmail.com"
+$ mkdir sample-repo 
+$ cd sample-repo
+$ git init 
+$ echo "Hello" > README.md
+$ cat README.md
+$ git status
+$ git add README.md   # git add .
+$ git status 
+$ git commit -m "commit message"
+$ git status 
+$ git log
+$ git log --oneline
+$ echo "Hello World" > README.md
+$ git diff 
+$ git add .
+$ git status 
+$ git reset
+$ git status 
+$ git reset --hard
+$ git status 
