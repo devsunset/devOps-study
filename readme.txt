@@ -18,6 +18,9 @@ $ vagrant up
 $ vagrant ssh 
 $ uname -n
 $ ip addr show dev eth1
+$ vagrant halt
+$ vagrant destroy
+
 
 
 
