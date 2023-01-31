@@ -35,6 +35,8 @@ $ exit
 #Ansible
 https://ansible.com
 
+vagrant/demo2 
+
 [vagrant@demo ~] $ sudo systemctl stop nginx.service
 [vagrant@demo ~] $ sudo yum -y install epel-release
 [vagrant@demo ~] $ sudo yum -y install ansible
@@ -44,4 +46,10 @@ https://ansible.com
 [vagrant@demo ~]$ systemctl status nginx.service
 [vagrant@demo ~] $ ansible localhost -b -c local -m service -a "name=nginx state=started"
 
-
+[vagrant@demo ~] sudo yum -y install git 
+[vagrant@demo ~] git clone https://github.com/devops-book/ansible-playbook-sample.git
+[vagrant@demo ~]  cd ansible-playbook-sample
+[vagrant@demo ansible-playbook-sample]$ ansible-playbook -i development site.yml
+[vagrant@demo ansible-playbook-sample]$ curl localhost
+[vagrant@demo ansible-playbook-sample]$ ansible-playbook -i production site.xml
+[vagrant@demo ansible-playbook-sample]$ curl localhost
