@@ -14,6 +14,8 @@ https://www.vagrantup.com/
 https://www.vagrantup.com/docs
 https://app.vagrantup.com/boxes/search
 
+https://github.com/devsunset/vagrant-work
+
 $ cd ./vagrant/demo1/
 $ vagrant up 
 $ vagrant ssh 
@@ -35,6 +37,8 @@ $ exit
 # Ansible
 https://ansible.com
 https://docs.ansible.com/ansible/latest/
+
+https://github.com/devsunset/ansible-work
 
 vagrant/demo2 
 
@@ -106,3 +110,5 @@ $ rake spec SPEC_OPTS="--format html" > ~/result.html 	`
 
 ########################################################
 # Git
+
+https://github.com/devsunset/git-github-work
