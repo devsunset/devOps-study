@@ -137,3 +137,20 @@ $ git reset
 $ git status 
 $ git reset --hard
 $ git status 
+
+* https://www.github.com 
+* create sample-repo repository
+
+[vagrant@demo sample-repo]$ git remote add origin https://github.com/devsunset/sample-repo.git
+[vagrant@demo sample-repo]$ git push -u origin master
+
+* delete sample-repo 
+
+[vagrant@demo ~]$ git clone https://github.com/devsunset/sample-repo.git
+
+* https://www.github.com 
+* modify sampe-repo README.md file
+
+[vagrant@demo sample-repo]$ git pull
+
+
