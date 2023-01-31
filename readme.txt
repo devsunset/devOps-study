@@ -32,8 +32,9 @@ $ exit
 # curl http://192.168.33.10
 
 ########################################################
-#Ansible
+# Ansible
 https://ansible.com
+https://docs.ansible.com/ansible/latest/
 
 vagrant/demo2 
 
@@ -51,5 +52,57 @@ vagrant/demo2
 [vagrant@demo ~]  cd ansible-playbook-sample
 [vagrant@demo ansible-playbook-sample]$ ansible-playbook -i development site.yml
 [vagrant@demo ansible-playbook-sample]$ curl localhost
-[vagrant@demo ansible-playbook-sample]$ ansible-playbook -i production site.xml
+[vagrant@demo ansible-playbook-sample]$ ansible-playbook -i production site.yml --check --diff
+[vagrant@demo ansible-playbook-sample]$ ansible-playbook -i production site.yml
 [vagrant@demo ansible-playbook-sample]$ curl localhost
+
+########################################################
+# Serverspec
+https://serverspec.org
+
+vagrant/demo2 
+
+[vagrant@demo ~] git clone https://github.com/devops-book/ansible-playbook-sample.git
+[vagrant@demo ~]  cd ansible-playbook-sample
+[vagrant@demo ansible-playbook-sample]$ vi stie.yml    # -serverspec 주석 제거 
+[vagrant@demo ansible-playbook-sample]$ ansible-playbook -i development site.yml --diff
+
+mkdir ~/serverspec && cd ~/serverspec
+
+$ serverspec-init
+Select OS type:
+
+  1) UN*X
+  2) Windows
+
+Select number: 1
+
+Select a backend type:
+
+  1) SSH
+  2) Exec (local)
+
+Select number: 1
+
+Vagrant instance y/n: n
+Input target host name: www.example.jp
+ + spec/
+ + spec/www.example.jp/
+ + spec/www.example.jp/sample_spec.rb
+ + spec/spec_helper.rb
+ + Rakefile
+ + .rspec
+
+ $ rake spec
+
+[vagrant@demo ansible-playbook-sample]$ vi stie.yml    # -serverspec_sample 주석 제거 
+[vagrant@demo ansible-playbook-sample]$ ansible-playbook -i development site.yml --diff
+[vagrant@demo ansible-playbook-sample]$ ls -ld /tmp/serverspec_sample
+[vagrant@demo ansible-playbook-sample]$  cd /tmp/serverspec_sample
+$ rake spec 
+
+$ gem install coderay
+$ rake spec SPEC_OPTS="--format html" > ~/result.html 	`
+
+########################################################
+# Git
