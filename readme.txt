@@ -113,6 +113,8 @@ $ rake spec SPEC_OPTS="--format html" > ~/result.html 	`
 
 https://github.com/devsunset/git-github-work
 
+vagrant/demo2 
+
 $ suo yum install -y git 
 $ git --version 
 $ git config --global user.name "devsunset"
@@ -186,6 +188,8 @@ https://www.docker.com/
 https://hub.docker.com/
 
 https://github.com/devsunset/docker-work
+
+vagrant/demo2 
 
 $ sudo yum install -y docker
 $ systemctl start docker.service
@@ -310,4 +314,29 @@ $ docker-compose scale
 
 https://www.jenkins.io/
 
+vagrant/demo2 
+
+$ sudo yum install fontconfig java-11-openjdk
+$ sudo yum -y install wget
+$ sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo --no-check-certificate
+$ sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+$ sudo yum -y install jenkins
+
+$ sudo systemctl start jenkins.service
+
+http://192.168.33.10:8080 
+$ systemctl status firewalld
+$ sudo firewall-cmd --zone=public --permanent --add-port=8080/tcp
+$ firewall-cmd --reload
+
+* 위의 과정을 ansible-playbook-sample site.xml 파일에서 -jenkins 주석 해제후 Ansible로 실행하면 동일하게 설치됨 
+  (최신 jenkins는 jdk8 이상을 사용하는 관계로 정상 동작 하지 않을 수 있음 위의 메뉴얼로 설치 후 진행 )
+
+* create jenkins project test
+
+$ git clone https://github.com/devops-book/ansible-playbook-sample.git /tmp/ansible-playbook-sample
+
+* jenkins 사용자가 sudo 명령어 실행이 가능하도록  아래 경로의 jenkins파일에 내용 설정 
+/etc/sudoers.d/jenkins 
+jenkins ALL=(ALL) NOPASSWD:ALL
 
