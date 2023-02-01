@@ -181,3 +181,86 @@ http://scottchacon.com/2011/08/31/github-flow.html
 
 ########################################################
 # Docker
+
+https://www.docker.com/
+https://hub.docker.com/
+
+https://github.com/devsunset/docker-work
+
+$ sudo yum install -y docker
+$ systemctl start docker.service
+$ docker version
+
+#  관리자 계정(root) 가 아닌 일반 유저 계정으로 docker를 실행하는 법
+1. 도커 그룹 생성 
+    sudo groupadd docker
+2. 현재 유저를 도커 그룹에 포함
+    sudo usermod -aG docker $USER
+3. 접근 에러가 발생하지 않도록 권한 부여
+    sudo chmod 666 /var/run/docker.sock
+4. docker 서비스 재시작 or reboot
+    sudo service docker restart
+5. 실행 확인
+    docker run hello-world
+
+$ docker login 
+$ dockr search centos
+$ docker pull docker.io/centos
+$ docker pull docker.io/centos:centos7
+$ docker images
+$ docker run -td --name centos7 docker.io/centos:centos7
+$ docker ps 
+$ docker ps -a
+$ docker exec centos7 cat /etc/redhat-release
+$ docker exec -it centos7 /bin/bash
+$ cat /etc/redhat-release
+$ exit
+$ docker stop centos7 
+$ docker ps
+$ docker ps -a
+$ docker start centos7
+$ docker ps
+$ docker rm -f centos7 
+$ docker ps -a 
+$ docker pull docker.io/ubuntu
+$ docker run -td --name ubuntu-latest docker.io/ubuntu:latest
+$ docker exec -it ubuntu-latest cat /etc/os-release
+$ dockr pull docker.io/nginx
+$ docker run -d -p 8000:80 --name nginx-latest docker.io/nginx:latest
+$ docker ps
+$ curl http://localhost:8000/index.html
+$ docker logs -f nginx-latest
+
+* https://hub.docker.com/_/centos  : dockerfile
+* https://hub.docker.com/_/nginx
+
+$ docker run -td --name centos7 docker.io/centos:centos7
+
+$ echo "Hello, Docker." > hello-docker.txt
+$  vi Dockerfile
+FROM docker.io/centos:latest
+ADD hello-docker.txt /tmp
+RUN yum install -y epel-release   
+CMD ["/bin/bash"]
+
+$ docker build -t devsunset/centos:1.0 ./
+
+# 실행시 아래 에러 발생하면 Dockerfile 에서 RUN yum install -y epel-release 주석 처리 하고 진행 
+Error: Failed to download metadata for repo 'appstream': Cannot prepare internal mirrorlist: No URLs in mirrorlist
+
+$ docker images
+$ docker run -td --name dev/centos devsunset/centos:1.0
+$ docker ps
+$ docker exec -it devcentos /bin/bash
+$ cat /tmp/hello-docker.txt
+$ yum install -y nginx 
+
+# 위의 nginx 설치  명령어 실행시 에러 발생 하면 아래 명령어 실행 후 다시 재실행 
+  $ sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
+  $ sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
+
+$ exit 
+$ docker commit devcentos devsunset/centos:1.1
+$ docker images
+$ docker push devsunset/centos:1.1
+
