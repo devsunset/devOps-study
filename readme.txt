@@ -264,3 +264,44 @@ $ docker commit devcentos devsunset/centos:1.1
 $ docker images
 $ docker push devsunset/centos:1.1
 
+* https://docs.docker.com/compose/install
+
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+$ docker-compose --version
+
+* https://github.com/docker/awesome-compose/
+
+$ vi docker-compose.yml
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+      MYSQL_DATABASE: databasename
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpwd
+
+  wordpress:
+    image: wordpress
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+      WORDPRESS_DB_NAME: wp
+    depends_on:
+      - db
+
+volumes:
+  db_data: {}
+
+$ docker-compose up -d
+$ docker ps
+$ docker-compose stop 
+$ docker-compose down
+$ docker-compose scale 
+
