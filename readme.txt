@@ -141,16 +141,43 @@ $ git status
 * https://www.github.com 
 * create sample-repo repository
 
-[vagrant@demo sample-repo]$ git remote add origin https://github.com/devsunset/sample-repo.git
-[vagrant@demo sample-repo]$ git push -u origin master
+$ git remote add origin https://github.com/devsunset/sample-repo.git
+$ git push -u origin master
 
 * delete sample-repo 
 
-[vagrant@demo ~]$ git clone https://github.com/devsunset/sample-repo.git
+$ git clone https://github.com/devsunset/sample-repo.git
 
 * https://www.github.com 
 * modify sampe-repo README.md file
 
-[vagrant@demo sample-repo]$ git pull
+$ git pull
+$ git log 
 
+$ git branch
+$ git branch develop
+$ git branch 
+$ git checkout develop
+$ git branch
+$ echo 'update test' >> README.md
+$ cat README.md
+$ git add .
+$ git commit -m "updated README"
+$ git push origin develop
 
+* https://www.github.com 
+1) Pull Requests   ( develop -> master  PR )
+2) Review & Comment 
+3) Comment 대응 
+4) Reviw 및 병합 
+
+$ git checkout master
+$ git pull
+$ cat README.md 
+
+* git flow
+https://nvie.com/posts/a-successful-git-branching-model/
+http://scottchacon.com/2011/08/31/github-flow.html
+
+########################################################
+# Docker
