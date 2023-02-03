@@ -421,3 +421,86 @@ Color ANSI Console Output 체크
 Add Build Stemp -> Invoke Ansible Playbook 선택 후 아래와 같이 설정 
 Playbook path : site.yml
 Inventory : File or host list : inventory/development 
+
+########################################################
+# ELK
+
+* Logstash
+* Elasticsearch
+* Kibana
+
+$ cd ansible-practice
+$ ansible-playbook -i inventory/development site.yml
+$ ansible-playbook -i inventory/development visualization.yml
+
+http://LB 서버 IP 주소 
+http://kibana 서버  IP 주소:5601
+
+Logstash -> /var/log/nginx/access.log 
+HTTP의 X-Forwarded-For   헤더에 클라이언트의 IP 주소가 기록 
+web1, web2 서버의 Logstash 설정은 /etc/logstash/conf.d/nginx.conf에 설정 됨
+
+input 블록
+https://www.elastic.co/guide/en/logstash/current/input-plugins.html
+
+input {
+  file {
+    path => "{{ nginx_log_dir }}/access.log"
+    start_position => "end"
+  }
+}
+
+filter 블록
+https://www.elastic.co/guide/en/logstash/current/filter-plugins.html
+
+filter {
+  grok {
+    match => { "message" => "%{COMBINEDAPACHELOG}( \"%{IP:x_forwarded_for}\")?" }
+    break_on_match => false
+    tag_on_failure => ["_message_parse_failure"]
+  }
+  date {
+    match => ["timestamp", "dd/MMM/YYYY:HH:mm:ss Z"]
+    locale => en
+  }
+  geoip {
+    target => "client_geoip"
+    source => ["x_forwarded_for"]
+  }
+  geoip {
+    target => "geoip"
+    source => ["clientip"]
+  }
+  grok {
+    match => { "request" => "(?<first_path>^/[^/]*)%{GREEDYDATA}$" }
+    tag_on_failure => ["_request_parse_failure"]
+  }
+  useragent {
+    source => "agent"
+    target => "useragent"
+  }
+}
+
+output 블록
+https://www.elastic.co/guide/en/logstash/current/output-plugins.html
+
+output {
+  elasticsearch {
+    hosts => ["{{ elasticsearch_host }}:{{ elasticsearch_port }}"]
+  }
+}
+
+Elasticsearch : 정보의 취득 설정
+/etc/elasticsearch/elasticsearch.yml 
+
+Kibana : 가시화 설정
+/opt/kibana/config/kibana.yml 
+
+Dummey Access Log
+https://github.com/tamtam180/apache_log_gen
+$ git clong https://github.com/tamtam180/apache_log_gen.git
+$ cd apache_log_gen
+$ gem install apache-loggen
+$ apache-loggen --limit=5000 --rate=10 --progress /var/log/nginx/access.log 
+
+
