@@ -340,3 +340,40 @@ $ git clone https://github.com/devops-book/ansible-playbook-sample.git /tmp/ansi
 /etc/sudoers.d/jenkins 
 jenkins ALL=(ALL) NOPASSWD:ALL
 
+########################################################
+# CloudFormation
+
+* WEB 2 , LB 1 , CI 1 , Kibana 1 총 5대 
+$ cd cloudformation
+$ aws cloudformation create-stack --stack-name ci-visualization -- template-body file://ci_visualization.json \
+--parmeters ParameterKey=VpcId,ParameterValue=[본잉 계정 VPC ID] \
+ParameterKey=SubnetId,ParameterValue=[본인 계정 SubnetID] \
+ParameterKey=KeynName,ParameterValue=[본인 계정 키 쌍 이름]
+
+* CI 서버에 로그인 
+$ ssh -i 본인의 저장된 SSH 접속 키(키 페어 이름) centos@CI 서버의 주소
+
+* CloudFormation 환경의 일괄 삭제 
+$ aws cloudformation delete-stack --stack-name ci-visualization
+
+
+########################################################
+# GitHub -> Slack 
+
+https://slack.com
+
+https://github.com/integrations/slack#readme
+
+* https://my.slack.com/apps   
+1. github slack 추가 
+2. Connect GitHub Account
+3. Authorize Slack
+4. Verification code 
+5. /github subscribe organization/repository  (slack cmd)
+6. install sample-repo repository
+7. /github subscribe list  (slack cmd)
+8. sample-repo  push test
+
+
+########################################################
+# GitHub -> Slack 
