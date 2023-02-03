@@ -376,4 +376,4 @@ https://github.com/integrations/slack#readme
 
 
 ########################################################
-# GitHub -> Slack 
+# GitHub -> Jenkins
