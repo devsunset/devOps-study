@@ -7,7 +7,6 @@
 ########################################################
 ### DEVOPS
 
-
 ########################################################
 # Vagrant 
 https://www.vagrantup.com/
@@ -356,7 +355,6 @@ $ ssh -i 본인의 저장된 SSH 접속 키(키 페어 이름) centos@CI 서버�
 * CloudFormation 환경의 일괄 삭제 
 $ aws cloudformation delete-stack --stack-name ci-visualization
 
-
 ########################################################
 # GitHub -> Slack 
 
@@ -374,6 +372,52 @@ https://github.com/integrations/slack#readme
 7. /github subscribe list  (slack cmd)
 8. sample-repo  push test
 
-
 ########################################################
 # GitHub -> Jenkins
+
+1. CI 서버 (jenkins 설치 서버) 자체가 Git 명령어 사용이 가능해야 함 
+2. Inbound/Outbound 모두 인터넷과 통신이 가능해야 함 
+   리눅스에서 공인 아이피 확인 - $ wget http://ifconfig.me
+   https://docs.github.com/ko/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses
+
+3. jekins create item   - sample-repo
+4. Git repository 설정 
+5. Build  Steps -> Execute Shell
+    ls -l 
+    cat README.md
+6. jenkins 관리 -> 플러그인 관리 -> GitHub Plugin 설치  (GitHub Integration)
+7. sample-repo 구성에서 빌드 유발 GitHub hook trigger for GISTScm polling 
+8. GitHub sample-repo -> Settings -> WebHook ->Payload URL : http://CI서버IP주소:8080/github-webhook
+9. sample-repo  push test 
+
+########################################################
+# Jenkins -> Slack
+
+*  https://my.slack.com/apps   
+1. Jenkins CI 검색 
+2. Slack 추가 
+3. Slack channel select 
+설정 지침 설명서 내용을 토대로 Jenkins에  slack notification  plugin 설치 하고 설정 진행 
+(jekins 및 slack notification  plugin 버젼에 따라 설명 지침 내용과 내용이 다를 수도 있으니 참고 하여 설정)
+
+
+########################################################
+# Jenkins -> Ansible
+
+HAProxy가 LB 기능 처리  , Nginx 서버 2대 
+
+$ cd ansible-practice
+$ ansible-playbook -i inventory/development site.yml 
+
+Jenkins
+Ansible plugin , AnsiColor Plugin-In 설치 
+
+Create New item
+* 소스 코드 관리 
+git -> https://github.com/devops-book/ansible-practice.git
+* 빌드 환경 
+Color ANSI Console Output 체크 
+* Build
+Add Build Stemp -> Invoke Ansible Playbook 선택 후 아래와 같이 설정 
+Playbook path : site.yml
+Inventory : File or host list : inventory/development 
