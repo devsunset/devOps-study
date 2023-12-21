@@ -1,6 +1,6 @@
 -------------------------------------------------
 
-			# DEVOPS-WORK #
+			# DEVOPS-STUDY #
 
 -------------------------------------------------
 
@@ -13,7 +13,7 @@ https://www.vagrantup.com/
 https://www.vagrantup.com/docs
 https://app.vagrantup.com/boxes/search
 
-https://github.com/devsunset/vagrant-work
+https://github.com/devsunset/vagrant-study
 
 $ cd ./vagrant/demo1/
 $ vagrant up 
@@ -37,7 +37,7 @@ $ exit
 https://ansible.com
 https://docs.ansible.com/ansible/latest/
 
-https://github.com/devsunset/ansible-work
+https://github.com/devsunset/ansible-study
 
 vagrant/demo2 
 
@@ -110,7 +110,7 @@ $ rake spec SPEC_OPTS="--format html" > ~/result.html 	`
 ########################################################
 # Git
 
-https://github.com/devsunset/git-github-work
+https://github.com/devsunset/git-github-study
 
 vagrant/demo2 
 
@@ -186,7 +186,7 @@ http://scottchacon.com/2011/08/31/github-flow.html
 https://www.docker.com/
 https://hub.docker.com/
 
-https://github.com/devsunset/docker-work
+https://github.com/devsunset/docker-study
 
 vagrant/demo2 
 
